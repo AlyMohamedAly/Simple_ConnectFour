@@ -21,6 +21,7 @@ class GameFrame extends JFrame{
     private ImageIcon[] GapImgsY = new ImageIcon[42];
     private ImageIcon[] GapImgsR = new ImageIcon[42];
     private JPanel ppl = new JPanel();
+    private int Player = 1;
     GameFrame(){
         init();
         this.setTitle("ConnectFour");
@@ -43,7 +44,7 @@ class GameFrame extends JFrame{
 
     private void init() {
         for(int i = 0; i < 42; i++){
-            Gaps[i] = new JLabel("ssdsdsdsd");
+            Gaps[i] = new JLabel();
         }
         for(int i = 0; i < 42; i++){
             GapImgsW[i] = new ImageIcon("rsz_wcir2c.png");
@@ -62,8 +63,18 @@ class GameFrame extends JFrame{
         public void mouseClicked(MouseEvent e)
         {
             int target = clickRow();
-            if(target > -1)
-                Gaps[target].setIcon(GapImgsY[target]);
+            if(target > -1){
+                if(Player == 1){
+                    Gaps[target].setIcon(GapImgsY[target]);
+                    Player = 2;
+                    checkWin(target);
+                }
+                else{
+                    Gaps[target].setIcon(GapImgsR[target]);
+                    Player = 1;
+                    checkWin(target);
+                }
+            }
         }
         private int clickRow(){
             if (index % 7 == 0){
@@ -168,6 +179,9 @@ class GameFrame extends JFrame{
         }
         private boolean isEmpty(JLabel gg, int indk){
             return gg.getIcon() == GapImgsW[indk];
+        }
+        private void checkWin(int ind){
+            
         }
     }
 }
