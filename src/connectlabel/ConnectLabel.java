@@ -81,9 +81,25 @@ class GameFrame extends JFrame{
         }
         private void checkWin(int ind){
             if(checkVertical(ind) || checkHorizontal(ind) || checkDiagonal(ind)){
-                JOptionPane.showMessageDialog(null, "Game Over", "Game Over", JOptionPane.ERROR_MESSAGE);
+                if(Gaps[ind].getIcon() == GapImgsYW){
+                    JOptionPane.showMessageDialog(null, "Yellow Wins", "Game Over", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Red Wins", "Game Over", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }
+            }
+            if(checkDraw()){
+                JOptionPane.showMessageDialog(null, "Draw", "Game Over", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
+        }
+        private boolean checkDraw(){
+            for(int i = 0; i < 41; i++)
+                if(isEmpty(Gaps[i]))
+                    return false;
+            return true;
         }
         private boolean checkVertical(int ind){
             int top = getTop(ind);
